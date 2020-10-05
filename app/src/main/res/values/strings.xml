@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ArcTouchInterview</string>
+    <string name="palavras_certas">Palavras certas</string>
+    <string name="type_an_reserved_java_name">Type an reserved java name</string>
+</resources>
