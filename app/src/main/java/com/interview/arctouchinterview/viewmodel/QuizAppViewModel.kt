@@ -5,11 +5,11 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.interview.arctouchinterview.model.Keyword
-import com.interview.arctouchinterview.model.KeywordsMemmoryRepository
+import com.interview.arctouchinterview.model.KeywordsMemoryRepository
 import com.interview.arctouchinterview.model.KeywordsRepository
 
 class QuizAppViewModel(
-    repository: KeywordsRepository = KeywordsMemmoryRepository()
+    repository: KeywordsRepository = KeywordsMemoryRepository()
 ): ViewModel() {
 
     val timerLimit: Long = 60000*5

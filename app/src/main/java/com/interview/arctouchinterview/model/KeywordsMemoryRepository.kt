@@ -1,6 +1,6 @@
 package com.interview.arctouchinterview.model
 
-class KeywordsMemmoryRepository: KeywordsRepository {
+class KeywordsMemoryRepository: KeywordsRepository {
 
     override fun getInitialWords(): List<Keyword> {
         val list = emptyList<Keyword>().toMutableList();
