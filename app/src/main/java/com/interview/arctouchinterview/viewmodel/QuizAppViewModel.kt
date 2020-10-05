@@ -1,7 +1,6 @@
 package com.interview.arctouchinterview.viewmodel
 
 import android.os.CountDownTimer
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.interview.arctouchinterview.model.Keyword
@@ -25,7 +24,6 @@ class QuizAppViewModel(
         allWords.value = repository.getInitialWords().toMutableList()
         rightScore.value = 0
         rightWords.value = emptyList<Keyword>().toMutableList()
-        Log.d("teste", "viewmodel initial value: $timerLimit")
         actualTime.value = timerLimit
     }
 
