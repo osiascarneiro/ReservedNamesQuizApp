@@ -1,4 +1,4 @@
-package com.interview.arctouchinterview.model
+package com.quiz.javareservednames.model
 
 interface KeywordsRepository {
 

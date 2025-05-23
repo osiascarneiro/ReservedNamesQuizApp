@@ -1,8 +1,11 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id("org.jetbrains.kotlin.plugin.compose")
+}
 
 android {
+    namespace "com.quiz.javareservednames"
 
     compileOptions {
         sourceCompatibility = 1.8
@@ -13,37 +16,54 @@ android {
         jvmTarget = "1.8"
     }
 
-    compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3"
+    }
 
     defaultConfig {
-        applicationId "com.interview.arctouchinterview"
+        applicationId "com.quiz.javareservednames"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 36
+        compileSdkVersion 35
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation "androidx.cardview:cardview:1.0.0"
-    implementation "androidx.fragment:fragment-ktx:1.2.5"
-    implementation "com.google.android.material:material:1.2.1"
+    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
+    implementation "androidx.activity:activity-ktx:1.10.1"
+    implementation 'com.google.android.material:material:1.12.0'
+
+    // Compose Bill of Materials (BOM) - manages Compose library versions
+    implementation platform('androidx.compose:compose-bom:2025.05.01') // Use the latest BOM version
+
+    // Choose the Compose artifacts you need
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.activity:activity-compose'
+    implementation 'androidx.compose.material3:material3:1.4.0-alpha15' // For Material Design 3
+    implementation 'androidx.compose.ui:ui-tooling-preview' // For previews in Android Studio
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose'
+    debugImplementation 'androidx.compose.ui:ui-tooling' // For advanced tooling like Layout Inspector
+    debugImplementation 'androidx.compose.ui:ui-test-manifest' // For UI tests
+
+    // Other Compose libraries you might need:
+    // implementation 'androidx.activity:activity-compose:1.7.0' // For integration with Activity
+    // implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2' // For ViewModel integration
+    // implementation 'androidx.navigation:navigation-compose:2.7.5' // For navigation
+
+    // ... other existing dependencies
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
