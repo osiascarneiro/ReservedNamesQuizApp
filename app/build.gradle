@@ -57,15 +57,10 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling' // For advanced tooling like Layout Inspector
     debugImplementation 'androidx.compose.ui:ui-test-manifest' // For UI tests
 
-    // Other Compose libraries you might need:
-    // implementation 'androidx.activity:activity-compose:1.7.0' // For integration with Activity
-    // implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2' // For ViewModel integration
-    // implementation 'androidx.navigation:navigation-compose:2.7.5' // For navigation
-
     // ... other existing dependencies
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
 }
