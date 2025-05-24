@@ -10,20 +10,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -56,6 +60,7 @@ fun QuizAppScreen(
         actualTime = actualTime,
         actualScore = actualScore,
         checkRightWord = quizViewModel::checkRightWord,
+        resetTimer = quizViewModel::resetTimer,
         modifier = modifier
     )
 
@@ -72,11 +77,14 @@ private fun QuizAppContent(
     actualTime: Long,
     actualScore: Int,
     checkRightWord: (String) -> Boolean,
-    modifier: Modifier = Modifier
+    resetTimer: () -> Unit,
+    modifier: Modifier = Modifier,
+    dialogInitialState: Boolean = false
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val textFieldState = rememberTextFieldState(initialText = "")
     val scope = rememberCoroutineScope()
+    var shouldShoDialog by remember { mutableStateOf(dialogInitialState) }
     val focusManager = LocalFocusManager.current
 
     val rightAnswer = stringResource(R.string.right_answer)
@@ -144,6 +152,10 @@ private fun QuizAppContent(
                                         snackbarHostState.showSnackbar(wrongAnswer)
                                     }
                                 }
+                                if (actualScore == allWords.size) {
+                                    shouldShoDialog = true
+                                    resetTimer()
+                                }
                                 focusManager.clearFocus()
                             }
                             .size(48.dp),
@@ -173,6 +185,28 @@ private fun QuizAppContent(
                     }
                 }
             }
+            if (shouldShoDialog) {
+                AlertDialog(
+                    onDismissRequest = {
+                        shouldShoDialog = false
+                    },
+                    title = {
+                        Text(text = "You found all the words!")
+                    },
+                    text = {
+                        Text(text = "You get all, well done!")
+                    },
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                shouldShoDialog = false
+                            }
+                        ) {
+                            Text(text = "dismiss")
+                        }
+                    }
+                )
+            }
         }
     }
 }
@@ -195,7 +229,9 @@ fun QuizAppScreenPreview() {
             Keyword("data")
         ),
         actualTime = 300000,
-        actualScore = 5,
-        checkRightWord = { _ -> true }
+        actualScore = 7,
+        checkRightWord = { _ -> true },
+        resetTimer = {},
+        dialogInitialState = true
     )
 }
